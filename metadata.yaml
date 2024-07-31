@@ -28,6 +28,8 @@ spec:
     actuationTool:
       flavor: Terraform
       version: ">= 0.13"
+    description: {}
+    icon: assets/icon.png
   content:
     examples:
       - name: simple_example
