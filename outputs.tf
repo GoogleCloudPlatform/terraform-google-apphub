@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 output "application_id" {
-  value = var.create_application ? google_apphub_application.apphub_application[0].id : null
+  description = "The apphub application id in format projects/{{project}}/locations/{{location}}/applications/{{application_id}}"
+  value       = var.create_application ? google_apphub_application.apphub_application[0].id : null
 }
 
 output "service_ids" {
-  value = [for service in google_apphub_service.register_services : service.id]
+  description = "The list of service ids registered with application."
+  value       = [for service in google_apphub_service.register_services : service.id]
 }
 
 output "workload_ids" {
-  value = [for workload in google_apphub_workload.register_workloads : workload.id]
+  description = "The list of workload ids registered with application."
+  value       = [for workload in google_apphub_workload.register_workloads : workload.id]
 }

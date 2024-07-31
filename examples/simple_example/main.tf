@@ -15,12 +15,12 @@
  */
 
 module "apphub" {
-  source = "../.."
+  source = "googlestaging/apphub/google"
 
-  project_id = var.project_id
-  application_id = "ci-apphub-application-id"
-  location = "us-central1"
-  scope = { type: "REGIONAL"}
+  project_id         = var.project_id
+  application_id     = "ci-apphub-application-id"
+  location           = "us-central1"
+  scope              = { type : "REGIONAL" }
   create_application = true
 
 }

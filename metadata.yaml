@@ -1,3 +1,17 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 apiVersion: blueprints.cloud.google.com/v1alpha1
 kind: BlueprintMetadata
 metadata:
@@ -9,37 +23,23 @@ spec:
     title: terraform-google-apphub
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
+      sourceType: git
     version: 0.0.1
     actuationTool:
       flavor: Terraform
       version: ">= 0.13"
-    description:
-      tagline: This is an auto-generated module.
-      detailed: "This module was generated from "
-      preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
-    icon: assets/icon.png
-    costEstimate:
-      description: Blueprint cost details
-      url: https://cloud.google.com/products/calculator?id=02fb0c45-cc29-4567-8cc6-f72ac9024add
   content:
-    architecture:
-      diagramUrl: https://www.link-to-architecture-diagram.com
-      description:
-        - 1. Architecture description step no. 1
-        - 2. Architecture description step no. 2
-        - 3. Architecture description step no. N
-    documentation:
-      - title: Hosting a Static Website
-        url: https://cloud.google.com/storage/docs/hosting-static-website
     examples:
       - name: simple_example
         location: examples/simple_example
   interfaces:
     variables:
       - name: application_id
+        description: The AppHub application identifier
         varType: string
         required: true
       - name: attributes
+        description: Attributes for the AppHub application
         varType: |-
           object({
               environment : optional(object({ type : string })),
@@ -49,39 +49,51 @@ spec:
               operator_owners : optional(object({ email : string, display_name : optional(string, "") }))
             })
       - name: create_application
+        description: Create apphub application when true
         varType: bool
         defaultValue: false
       - name: create_service_attachment
+        description: Create service attachment between host and service project when true
         varType: bool
         defaultValue: false
       - name: description
+        description: User-defined description of AppHub application
         varType: string
         defaultValue: ""
       - name: display_name
+        description: User-defined name for the AppHub application
         varType: string
         defaultValue: ""
       - name: host_project_id
+        description: The project ID of the host project. Use project_id by default.
         varType: string
       - name: location
+        description: The location of apphub resources
         varType: string
         required: true
       - name: project_id
-        description: The project ID to deploy to
+        description: The project ID of the service project where service and workloads are present
         varType: string
         required: true
       - name: scope
+        description: Scope of the AppHub application
         varType: "object({ type : string })"
         required: true
       - name: service_uris
+        description: The list of service uris in CAIS style to register
         varType: "list(object({ service_uri : string, service_id : string }))"
         defaultValue: []
       - name: workload_uris
+        description: The list of workload uris in CAIS style to register
         varType: "list(object({ workload_uri : string, workload_id : string }))"
         defaultValue: []
     outputs:
       - name: application_id
+        description: The apphub application id in format projects/{{project}}/locations/{{location}}/applications/{{application_id}}
       - name: service_ids
+        description: The list of service ids registered with application.
       - name: workload_ids
+        description: The list of workload ids registered with application.
   requirements:
     roles:
       - level: Project

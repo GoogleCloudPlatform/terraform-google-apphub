@@ -15,48 +15,57 @@
  */
 
 variable "project_id" {
-  description = "The project ID to deploy to"
+  description = "The project ID of the service project where service and workloads are present"
   type        = string
 }
 
 variable "location" {
-  type = string
+  description = "The location of apphub resources"
+  type        = string
 }
 
 variable "host_project_id" {
-  type    = string
-  default = null
+  description = "The project ID of the host project. Use project_id by default."
+  type        = string
+  default     = null
 }
 
 variable "create_application" {
-  type    = bool
-  default = false
+  description = "Create apphub application when true"
+  type        = bool
+  default     = false
 }
 
 variable "create_service_attachment" {
-  type    = bool
-  default = false
+  description = "Create service attachment between host and service project when true"
+  type        = bool
+  default     = false
 }
 
 variable "application_id" {
-  type = string
+  description = "The AppHub application identifier"
+  type        = string
 }
 
 variable "display_name" {
-  type    = string
-  default = ""
+  description = "User-defined name for the AppHub application"
+  type        = string
+  default     = ""
 }
 
 variable "description" {
-  type    = string
-  default = ""
+  description = "User-defined description of AppHub application"
+  type        = string
+  default     = ""
 }
 
 variable "scope" {
-  type = object({ type : string })
+  description = "Scope of the AppHub application"
+  type        = object({ type : string })
 }
 
 variable "attributes" {
+  description = "Attributes for the AppHub application"
   type = object({
     environment : optional(object({ type : string })),
     criticality : optional(object({ type : string })),
@@ -68,11 +77,13 @@ variable "attributes" {
 }
 
 variable "service_uris" {
-  type    = list(object({ service_uri : string, service_id : string }))
-  default = []
+  description = "The list of service uris in CAIS style to register"
+  type        = list(object({ service_uri : string, service_id : string }))
+  default     = []
 }
 
 variable "workload_uris" {
-  type    = list(object({ workload_uri : string, workload_id : string }))
-  default = []
+  description = "The list of workload uris in CAIS style to register"
+  type        = list(object({ workload_uri : string, workload_id : string }))
+  default     = []
 }

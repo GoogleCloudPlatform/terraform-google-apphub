@@ -1,34 +1,13 @@
 # terraform-google-apphub
 
-## Description
-### Tagline
-This is an auto-generated module.
+This module creates AppHub related resources. This includes,
+1. Creation of an AppHub application in host project
+2. Creation of service attachment between host project and service project
+3. Registration of services with application
+4. Registration of workloads with application
 
-### Detailed
-This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
-
-The resources/services/activations/deletions that this module will create/trigger are:
-
-- Create a GCS bucket with the provided name
-
-### PreDeploy
-To deploy this blueprint you must have an active billing account and billing permissions.
-
-## Architecture
-![alt text for diagram](https://www.link-to-architecture-diagram.com)
-1. Architecture description step no. 1
-2. Architecture description step no. 2
-3. Architecture description step no. N
-
-## Documentation
-- [Hosting a Static Website](https://cloud.google.com/storage/docs/hosting-static-website)
-
-## Deployment Duration
-Configuration: X mins
-Deployment: Y mins
-
-## Cost
-[Blueprint cost details](https://cloud.google.com/products/calculator?id=02fb0c45-cc29-4567-8cc6-f72ac9024add)
+## Assumptions and Prerequisites
+1. All required APIs are enabled in the GCP Project. The AppHub api is enabled in host project
 
 ## Usage
 
@@ -40,7 +19,10 @@ module "apphub" {
   version = "~> 0.1"
 
   project_id  = "<PROJECT ID>"
-  bucket_name = "gcs-test-bucket"
+  application_id = "<APPHUB_APPLICATION_ID>"
+  location = "<LOCATION>"
+  scope = { type: "REGIONAL"}
+  create_application = true // Create new apphub application
 }
 ```
 
@@ -52,26 +34,26 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| application\_id | n/a | `string` | n/a | yes |
-| attributes | n/a | <pre>object({<br>    environment : optional(object({ type : string })),<br>    criticality : optional(object({ type : string })),<br>    business_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    developer_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    operator_owners : optional(object({ email : string, display_name : optional(string, "") }))<br>  })</pre> | `null` | no |
-| create\_application | n/a | `bool` | `false` | no |
-| create\_service\_attachment | n/a | `bool` | `false` | no |
-| description | n/a | `string` | `""` | no |
-| display\_name | n/a | `string` | `""` | no |
-| host\_project\_id | n/a | `string` | `null` | no |
-| location | n/a | `string` | n/a | yes |
-| project\_id | The project ID to deploy to | `string` | n/a | yes |
-| scope | n/a | `object({ type : string })` | n/a | yes |
-| service\_uris | n/a | `list(object({ service_uri : string, service_id : string }))` | `[]` | no |
-| workload\_uris | n/a | `list(object({ workload_uri : string, workload_id : string }))` | `[]` | no |
+| application\_id | The AppHub application identifier | `string` | n/a | yes |
+| attributes | Attributes for the AppHub application | <pre>object({<br>    environment : optional(object({ type : string })),<br>    criticality : optional(object({ type : string })),<br>    business_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    developer_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    operator_owners : optional(object({ email : string, display_name : optional(string, "") }))<br>  })</pre> | `null` | no |
+| create\_application | Create apphub application when true | `bool` | `false` | no |
+| create\_service\_attachment | Create service attachment between host and service project when true | `bool` | `false` | no |
+| description | User-defined description of AppHub application | `string` | `""` | no |
+| display\_name | User-defined name for the AppHub application | `string` | `""` | no |
+| host\_project\_id | The project ID of the host project. Use project\_id by default. | `string` | `null` | no |
+| location | The location of apphub resources | `string` | n/a | yes |
+| project\_id | The project ID of the service project where service and workloads are present | `string` | n/a | yes |
+| scope | Scope of the AppHub application | `object({ type : string })` | n/a | yes |
+| service\_uris | The list of service uris in CAIS style to register | `list(object({ service_uri : string, service_id : string }))` | `[]` | no |
+| workload\_uris | The list of workload uris in CAIS style to register | `list(object({ workload_uri : string, workload_id : string }))` | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| application\_id | n/a |
-| service\_ids | n/a |
-| workload\_ids | n/a |
+| application\_id | The apphub application id in format projects/{{project}}/locations/{{location}}/applications/{{application\_id}} |
+| service\_ids | The list of service ids registered with application. |
+| workload\_ids | The list of workload ids registered with application. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -91,7 +73,7 @@ The following dependencies must be available:
 A service account with the following roles must be used to provision
 the resources of this module:
 
-- Storage Admin: `roles/storage.admin`
+- App Hub Admin: `roles/apphub.admin`
 
 The [Project Factory module][project-factory-module] and the
 [IAM module][iam-module] may be used in combination to provision a
@@ -99,10 +81,10 @@ service account with the necessary roles applied.
 
 ### APIs
 
-A project with the following APIs enabled must be used to host the
-resources of this module:
+A project with the following APIs enabled must be used as host project for this
+ module:
 
-- Google Cloud Storage JSON API: `storage-api.googleapis.com`
+- Google AppHub API: `apphub.googleapis.com`
 
 The [Project Factory module][project-factory-module] can be used to
 provision a project with the necessary APIs enabled.
@@ -111,11 +93,6 @@ provision a project with the necessary APIs enabled.
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md) for
 information on contributing to this module.
-
-[iam-module]: https://registry.terraform.io/modules/terraform-google-modules/iam/google
-[project-factory-module]: https://registry.terraform.io/modules/terraform-google-modules/project-factory/google
-[terraform-provider-gcp]: https://www.terraform.io/docs/providers/google/index.html
-[terraform]: https://www.terraform.io/downloads.html
 
 ## Security Disclosures
 
