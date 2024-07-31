@@ -1,0 +1,91 @@
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-apphub
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: terraform-google-apphub
+    source:
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
+    version: 0.0.1
+    actuationTool:
+      flavor: Terraform
+      version: ">= 0.13"
+    description:
+      tagline: This is an auto-generated module.
+      detailed: "This module was generated from "
+      preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
+    icon: assets/icon.png
+    costEstimate:
+      description: Blueprint cost details
+      url: https://cloud.google.com/products/calculator?id=02fb0c45-cc29-4567-8cc6-f72ac9024add
+  content:
+    architecture:
+      diagramUrl: https://www.link-to-architecture-diagram.com
+      description:
+        - 1. Architecture description step no. 1
+        - 2. Architecture description step no. 2
+        - 3. Architecture description step no. N
+    documentation:
+      - title: Hosting a Static Website
+        url: https://cloud.google.com/storage/docs/hosting-static-website
+    examples:
+      - name: simple_example
+        location: examples/simple_example
+  interfaces:
+    variables:
+      - name: application_id
+        varType: string
+        required: true
+      - name: attributes
+        varType: |-
+          object({
+              environment : optional(object({ type : string })),
+              criticality : optional(object({ type : string })),
+              business_owners : optional(object({ email : string, display_name : optional(string, "") })),
+              developer_owners : optional(object({ email : string, display_name : optional(string, "") })),
+              operator_owners : optional(object({ email : string, display_name : optional(string, "") }))
+            })
+      - name: create_application
+        varType: bool
+        defaultValue: false
+      - name: create_service_attachment
+        varType: bool
+        defaultValue: false
+      - name: description
+        varType: string
+        defaultValue: ""
+      - name: display_name
+        varType: string
+        defaultValue: ""
+      - name: host_project_id
+        varType: string
+      - name: location
+        varType: string
+        required: true
+      - name: project_id
+        description: The project ID to deploy to
+        varType: string
+        required: true
+      - name: scope
+        varType: "object({ type : string })"
+        required: true
+      - name: service_uris
+        varType: "list(object({ service_uri : string, service_id : string }))"
+        defaultValue: []
+      - name: workload_uris
+        varType: "list(object({ workload_uri : string, workload_id : string }))"
+        defaultValue: []
+    outputs:
+      - name: application_id
+      - name: service_ids
+      - name: workload_ids
+  requirements:
+    roles:
+      - level: Project
+        roles:
+          - roles/owner
+    services:
+      - apphub.googleapis.com
