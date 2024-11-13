@@ -1,0 +1,73 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-apphub-display
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: terraform-google-apphub
+    source:
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
+      sourceType: git
+  ui:
+    input:
+      variables:
+        application_id:
+          name: application_id
+          title: Application Id
+        attributes:
+          name: attributes
+          title: Attributes
+        create_application:
+          name: create_application
+          title: Create Application
+        create_service_attachment:
+          name: create_service_attachment
+          title: Create Service Attachment
+        description:
+          name: description
+          title: Description
+        display_name:
+          name: display_name
+          title: Display Name
+        host_project_id:
+          name: host_project_id
+          title: Host Project Id
+        location:
+          name: location
+          title: Location
+        project_id:
+          name: project_id
+          title: Project Id
+        scope:
+          name: scope
+          title: Scope
+        service_uris:
+          name: service_uris
+          title: Service Uris
+        workload_uris:
+          name: workload_uris
+          title: Workload Uris
+    runtime:
+      outputs:
+        application_id:
+          visibility: VISIBILITY_ROOT
+        service_ids:
+          visibility: VISIBILITY_ROOT
+        workload_ids:
+          visibility: VISIBILITY_ROOT

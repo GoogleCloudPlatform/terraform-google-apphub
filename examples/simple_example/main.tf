@@ -15,7 +15,8 @@
  */
 
 module "apphub" {
-  source = "googlestaging/apphub/google"
+  source  = "GoogleCloudPlatform/apphub/google"
+  version = "~> 0.0.1"
 
   project_id         = var.project_id
   application_id     = "ci-apphub-application-id"
