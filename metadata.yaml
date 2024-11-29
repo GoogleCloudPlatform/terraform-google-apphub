@@ -36,9 +36,40 @@ spec:
         location: examples/simple_example
   interfaces:
     variables:
+      - name: project_id
+        description: The project ID of the service project where service and workloads are present
+        varType: string
+        required: true
+      - name: location
+        description: The location of apphub resources
+        varType: string
+        required: true
+      - name: host_project_id
+        description: The project ID of the host project. Use project_id by default.
+        varType: string
+      - name: create_application
+        description: Create apphub application when true
+        varType: bool
+        defaultValue: false
+      - name: create_service_attachment
+        description: Create service attachment between host and service project when true
+        varType: bool
+        defaultValue: false
       - name: application_id
         description: The AppHub application identifier
         varType: string
+        required: true
+      - name: display_name
+        description: User-defined name for the AppHub application
+        varType: string
+        defaultValue: ""
+      - name: description
+        description: User-defined description of AppHub application
+        varType: string
+        defaultValue: ""
+      - name: scope
+        description: Scope of the AppHub application
+        varType: "object({ type : string })"
         required: true
       - name: attributes
         description: Attributes for the AppHub application
@@ -50,52 +81,45 @@ spec:
               developer_owners : optional(object({ email : string, display_name : optional(string, "") })),
               operator_owners : optional(object({ email : string, display_name : optional(string, "") }))
             })
-      - name: create_application
-        description: Create apphub application when true
-        varType: bool
-        defaultValue: false
-      - name: create_service_attachment
-        description: Create service attachment between host and service project when true
-        varType: bool
-        defaultValue: false
-      - name: description
-        description: User-defined description of AppHub application
-        varType: string
-        defaultValue: ""
-      - name: display_name
-        description: User-defined name for the AppHub application
-        varType: string
-        defaultValue: ""
-      - name: host_project_id
-        description: The project ID of the host project. Use project_id by default.
-        varType: string
-      - name: location
-        description: The location of apphub resources
-        varType: string
-        required: true
-      - name: project_id
-        description: The project ID of the service project where service and workloads are present
-        varType: string
-        required: true
-      - name: scope
-        description: Scope of the AppHub application
-        varType: "object({ type : string })"
-        required: true
       - name: service_uris
         description: The list of service uris in CAIS style to register
         varType: "list(object({ service_uri : string, service_id : string }))"
         defaultValue: []
+        connections:
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-sql-db//modules/postgresql
+              version: ">= 23.0"
+            spec:
+              outputExpr: apphub_service_uri
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-memorystore
+              version: ">= 12.0"
+            spec:
+              outputExpr: apphub_service_uri
       - name: workload_uris
         description: The list of workload uris in CAIS style to register
         varType: "list(object({ workload_uri : string, workload_id : string }))"
         defaultValue: []
+        connections:
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-cloud-run//modules/v2
+              version: ">= 0.14"
+            spec:
+              outputExpr: apphub_service_uri
     outputs:
       - name: application_id
         description: The apphub application id in format projects/{{project}}/locations/{{location}}/applications/{{application_id}}
+        type: string
       - name: service_ids
         description: The list of service ids registered with application.
+        type:
+          - list
+          - - string
       - name: workload_ids
         description: The list of workload ids registered with application.
+        type:
+          - list
+          - - string
   requirements:
     roles:
       - level: Project
@@ -103,3 +127,6 @@ spec:
           - roles/owner
     services:
       - apphub.googleapis.com
+    providerVersions:
+      - source: hashicorp/google
+        version: ">= 3.53, < 6"

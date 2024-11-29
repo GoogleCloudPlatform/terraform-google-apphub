@@ -25,6 +25,7 @@ module "project" {
   billing_account   = var.billing_account
 
   activate_apis = [
-    "apphub.googleapis.com"
+    "apphub.googleapis.com",
+    "serviceusage.googleapis.com"
   ]
 }
