@@ -106,6 +106,11 @@ spec:
               version: ">= 0.14"
             spec:
               outputExpr: apphub_service_uri
+          - source:
+              source: github.com/terraform-google-modules/terraform-google-vm//modules/mig
+              version: ">= 12.1.2"
+            spec:
+              outputExpr: apphub_service_uri
     outputs:
       - name: application_id
         description: The apphub application id in format projects/{{project}}/locations/{{location}}/applications/{{application_id}}
@@ -114,12 +119,12 @@ spec:
         description: The list of service ids registered with application.
         type:
           - list
-          - - string
+          - string
       - name: workload_ids
         description: The list of workload ids registered with application.
         type:
           - list
-          - - string
+          - string
   requirements:
     roles:
       - level: Project
@@ -127,6 +132,7 @@ spec:
           - roles/owner
     services:
       - apphub.googleapis.com
+      - serviceusage.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 3.53, < 6"
