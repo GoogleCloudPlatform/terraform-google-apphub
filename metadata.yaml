@@ -77,9 +77,9 @@ spec:
           object({
               environment : optional(object({ type : string })),
               criticality : optional(object({ type : string })),
-              business_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),
-              developer_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),
-              operator_owners : optional(list(object({ email : string, display_name : optional(string, "") })))
+              business_owners : optional(object({ email : string, display_name : optional(string, "") })),
+              developer_owners : optional(object({ email : string, display_name : optional(string, "") })),
+              operator_owners : optional(object({ email : string, display_name : optional(string, "") }))
             })
       - name: service_uris
         description: The list of service uris in CAIS style to register
@@ -135,4 +135,4 @@ spec:
       - serviceusage.googleapis.com
     providerVersions:
       - source: hashicorp/google
-        version: ">= 3.53, < 7"
+        version: ">= 3.53, < 6"
