@@ -79,17 +79,17 @@ resource "google_apphub_service_project_attachment" "attach_service_project" {
 
 #Discover a service
 data "google_apphub_discovered_service" "services" {
-  for_each = { for service in var.service_uris : service.service_uri => service }
+  for_each = { for service in var.service_uris : service.service_id => service }
 
   project     = var.project_id
   location    = var.location
-  service_uri = each.key
+  service_uri = each.value.service_uri
   depends_on  = [google_apphub_service_project_attachment.attach_service_project]
 }
 
 # Register a service
 resource "google_apphub_service" "register_services" {
-  for_each = { for service in var.service_uris : service.service_uri => service }
+  for_each = { for service in var.service_uris : service.service_id => service }
 
   project            = var.project_id
   location           = var.location
@@ -100,17 +100,17 @@ resource "google_apphub_service" "register_services" {
 
 #Discover a workload
 data "google_apphub_discovered_workload" "workloads" {
-  for_each = { for workload in var.workload_uris : workload.workload_uri => workload }
+  for_each = { for workload in var.workload_uris : workload.workload_id => workload }
 
   project      = var.project_id
   location     = var.location
-  workload_uri = each.key
+  workload_uri = each.value.workload_uri
   depends_on   = [google_apphub_service_project_attachment.attach_service_project]
 }
 
 # Register a workload
 resource "google_apphub_workload" "register_workloads" {
-  for_each = { for workload in var.workload_uris : workload.workload_uri => workload }
+  for_each = { for workload in var.workload_uris : workload.workload_id => workload }
 
   project             = var.project_id
   location            = var.location
