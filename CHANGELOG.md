@@ -8,6 +8,19 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-apphub/compare/v0.1.0...v0.2.0) (2024-12-09)
+
+
+### Features
+
+* support TPG 6+ ([#13](https://github.com/GoogleCloudPlatform/terraform-google-apphub/issues/13)) ([808f640](https://github.com/GoogleCloudPlatform/terraform-google-apphub/commit/808f64057d3d57eb4b277921f14c04788b3a2eee))
+
+
+### Bug Fixes
+
+* update metadata ([#12](https://github.com/GoogleCloudPlatform/terraform-google-apphub/issues/12)) ([15a628a](https://github.com/GoogleCloudPlatform/terraform-google-apphub/commit/15a628a6b782c79549aca08fc056af9553b9370a))
+* update type on input variable attributes ([5956a86](https://github.com/GoogleCloudPlatform/terraform-google-apphub/commit/5956a86f464b1d9e50461bbd00ec3cff01273a9d))
+
 ## 0.1.0 (2024-11-29)
 
 
