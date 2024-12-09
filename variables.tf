@@ -69,9 +69,9 @@ variable "attributes" {
   type = object({
     environment : optional(object({ type : string })),
     criticality : optional(object({ type : string })),
-    business_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),
-    developer_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),
-    operator_owners : optional(list(object({ email : string, display_name : optional(string, "") })))
+    business_owners : optional(object({ email : string, display_name : optional(string, "") })),
+    developer_owners : optional(object({ email : string, display_name : optional(string, "") })),
+    operator_owners : optional(object({ email : string, display_name : optional(string, "") }))
   })
   default = null
 }
