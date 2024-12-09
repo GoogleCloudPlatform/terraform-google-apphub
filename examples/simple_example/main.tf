@@ -23,5 +23,9 @@ module "apphub" {
   location           = "us-central1"
   scope              = { type : "REGIONAL" }
   create_application = true
-
+  attributes = {
+    criticality : { type : "LOW" },
+    environment : { type : "TEST" },
+    business_owners : [{ email : "xyz@gmail.com", display_name : "xyz" }]
+  }
 }

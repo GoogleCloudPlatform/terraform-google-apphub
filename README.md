@@ -35,7 +35,7 @@ Functional examples are included in the
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | application\_id | The AppHub application identifier | `string` | n/a | yes |
-| attributes | Attributes for the AppHub application | <pre>object({<br>    environment : optional(object({ type : string })),<br>    criticality : optional(object({ type : string })),<br>    business_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    developer_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    operator_owners : optional(object({ email : string, display_name : optional(string, "") }))<br>  })</pre> | `null` | no |
+| attributes | Attributes for the AppHub application | <pre>object({<br>    environment : optional(object({ type : string })),<br>    criticality : optional(object({ type : string })),<br>    business_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),<br>    developer_owners : optional(list(object({ email : string, display_name : optional(string, "") }))),<br>    operator_owners : optional(list(object({ email : string, display_name : optional(string, "") })))<br>  })</pre> | `null` | no |
 | create\_application | Create apphub application when true | `bool` | `false` | no |
 | create\_service\_attachment | Create service attachment between host and service project when true | `bool` | `false` | no |
 | description | User-defined description of AppHub application | `string` | `""` | no |
