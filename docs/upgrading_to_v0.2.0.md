@@ -1,6 +1,6 @@
 # Upgrading to AppHub v0.2.0
 
-The release v0.2.0 of AppHub is backward incompatible. The variable type of `attributes` has been modified. 
+The release v0.2.0 of AppHub is backward incompatible. The variable type of `attributes` has been modified.
 
 ## Migration instruction
 
@@ -8,7 +8,7 @@ The release v0.2.0 of AppHub is backward incompatible. The variable type of `att
 Earlier `business_owners`, `develope_owners` and `operator_owners` could have only one owner. After this change, you should be able to provide list of owners.
 Below example shows way to update terraform code wherever this module is being used.
 
-```json
+```diff
 module "apphub" {
   source  = "GoogleCloudPlatform/apphub/google"
   version = "~> 0.0.1"
