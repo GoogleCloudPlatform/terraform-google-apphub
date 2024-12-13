@@ -95,7 +95,7 @@ resource "google_apphub_service" "register_services" {
   location           = var.location
   application_id     = var.application_id
   service_id         = each.value.service_id
-  discovered_service = data.google_apphub_discovered_service.services[each.value.service_uri].name
+  discovered_service = data.google_apphub_discovered_service.services[each.value.service_id].name
 }
 
 #Discover a workload
@@ -116,5 +116,5 @@ resource "google_apphub_workload" "register_workloads" {
   location            = var.location
   application_id      = var.application_id
   workload_id         = each.value.workload_id
-  discovered_workload = data.google_apphub_discovered_workload.workloads[each.value.workload_uri].name
+  discovered_workload = data.google_apphub_discovered_workload.workloads[each.value.workload_id].name
 }
