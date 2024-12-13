@@ -23,7 +23,6 @@ spec:
     title: terraform-google-apphub
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
-      sourceType: git
     version: 0.1.0
     actuationTool:
       flavor: Terraform
@@ -68,9 +67,10 @@ spec:
         varType: string
         defaultValue: ""
       - name: scope
-        description: Scope of the AppHub application
+        description: "Scope of the AppHub application. Possible values are: REGIONAL, GLOBAL."
         varType: "object({ type : string })"
-        required: true
+        defaultValue:
+          type: REGIONAL
       - name: attributes
         description: Attributes for the AppHub application
         varType: |-
@@ -135,4 +135,4 @@ spec:
       - serviceusage.googleapis.com
     providerVersions:
       - source: hashicorp/google
-        version: ">= 3.53, < 6"
+        version: ">= 3.53, < 7"
