@@ -60,8 +60,9 @@ variable "description" {
 }
 
 variable "scope" {
-  description = "Scope of the AppHub application"
+  description = "Scope of the AppHub application. Possible values are: REGIONAL, GLOBAL."
   type        = object({ type : string })
+  default     = { type : "REGIONAL" }
 }
 
 variable "attributes" {

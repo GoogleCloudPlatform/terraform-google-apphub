@@ -23,7 +23,6 @@ spec:
     title: terraform-google-apphub
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
-      sourceType: git
   ui:
     input:
       variables:
