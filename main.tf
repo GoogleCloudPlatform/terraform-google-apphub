@@ -81,9 +81,9 @@ resource "google_apphub_service_project_attachment" "attach_service_project" {
 data "google_apphub_discovered_service" "services" {
   for_each = { for service in var.service_uris : service.service_id => service }
 
-  project     = var.project_id
-  location    = var.location
-  service_uri = each.value.service_uri
+  project     = var.project_id # Host project id
+  location    = var.location # Location to find the discovered service
+  service_uri = each.value.service_uri # Resource URI for the service
   depends_on  = [google_apphub_service_project_attachment.attach_service_project]
 }
 
@@ -91,11 +91,11 @@ data "google_apphub_discovered_service" "services" {
 resource "google_apphub_service" "register_services" {
   for_each = { for service in var.service_uris : service.service_id => service }
 
-  project            = var.project_id
-  location           = var.location
-  application_id     = var.application_id
-  service_id         = each.value.service_id
-  discovered_service = data.google_apphub_discovered_service.services[each.value.service_id].name
+  project            = var.project_id # Host project Id for the apphub application
+  location           = var.location # Location of the the apphub application
+  application_id     = var.application_id # Apphub application ID
+  service_id         = each.value.service_id # service id which will uniquely identify the service
+  discovered_service = data.google_apphub_discovered_service.services[each.value.service_id].name # discovered service
 }
 
 #Discover a workload
