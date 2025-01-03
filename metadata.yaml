@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ spec:
     version: 0.2.0
     actuationTool:
       flavor: Terraform
-      version: ">= 0.13"
+      version: ">=1.3"
     description: {}
     icon: assets/icon.png
   content:
@@ -36,22 +36,19 @@ spec:
   interfaces:
     variables:
       - name: project_id
-        description: The project ID of the service project where service and workloads are present
+        description: The project ID of the host project where AppHub application is created.
         varType: string
         required: true
       - name: location
-        description: The location of apphub resources
+        description: The location of AppHub application.
         varType: string
         required: true
-      - name: host_project_id
-        description: The project ID of the host project. Use project_id by default.
-        varType: string
+      - name: service_project_ids
+        description: The list of service projects to attach with host project.
+        varType: list(string)
+        defaultValue: []
       - name: create_application
         description: Create apphub application when true
-        varType: bool
-        defaultValue: false
-      - name: create_service_attachment
-        description: Create service attachment between host and service project when true
         varType: bool
         defaultValue: false
       - name: application_id
@@ -83,7 +80,7 @@ spec:
             })
       - name: service_uris
         description: The list of service uris in CAIS style to register
-        varType: "list(object({ service_uri : string, service_id : string }))"
+        varType: "list(object({ service_uri : string, service_id : string, location : string }))"
         defaultValue: []
         connections:
           - source:
@@ -98,7 +95,7 @@ spec:
               outputExpr: apphub_service_uri
       - name: workload_uris
         description: The list of workload uris in CAIS style to register
-        varType: "list(object({ workload_uri : string, workload_id : string }))"
+        varType: "list(object({ workload_uri : string, workload_id : string, location : string }))"
         defaultValue: []
         connections:
           - source:

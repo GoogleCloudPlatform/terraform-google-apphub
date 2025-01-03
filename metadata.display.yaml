@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,9 +35,6 @@ spec:
         create_application:
           name: create_application
           title: Create Application
-        create_service_attachment:
-          name: create_service_attachment
-          title: Create Service Attachment
         description:
           name: description
           title: Description
@@ -56,6 +53,9 @@ spec:
         scope:
           name: scope
           title: Scope
+        service_project_ids:
+          name: service_project_ids
+          title: Service Project Ids
         service_uris:
           name: service_uris
           title: Service Uris

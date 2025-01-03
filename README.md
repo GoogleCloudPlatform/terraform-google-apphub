@@ -37,15 +37,14 @@ Functional examples are included in the
 | application\_id | The AppHub application identifier | `string` | n/a | yes |
 | attributes | Attributes for the AppHub application | <pre>object({<br>    environment : optional(object({ type : string })),<br>    criticality : optional(object({ type : string })),<br>    business_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    developer_owners : optional(object({ email : string, display_name : optional(string, "") })),<br>    operator_owners : optional(object({ email : string, display_name : optional(string, "") }))<br>  })</pre> | `null` | no |
 | create\_application | Create apphub application when true | `bool` | `false` | no |
-| create\_service\_attachment | Create service attachment between host and service project when true | `bool` | `false` | no |
 | description | User-defined description of AppHub application | `string` | `""` | no |
 | display\_name | User-defined name for the AppHub application | `string` | `""` | no |
-| host\_project\_id | The project ID of the host project. Use project\_id by default. | `string` | `null` | no |
-| location | The location of apphub resources | `string` | n/a | yes |
-| project\_id | The project ID of the service project where service and workloads are present | `string` | n/a | yes |
+| location | The location of AppHub application. | `string` | n/a | yes |
+| project\_id | The project ID of the host project where AppHub application is created. | `string` | n/a | yes |
 | scope | Scope of the AppHub application. Possible values are: REGIONAL, GLOBAL. | `object({ type : string })` | <pre>{<br>  "type": "REGIONAL"<br>}</pre> | no |
-| service\_uris | The list of service uris in CAIS style to register | `list(object({ service_uri : string, service_id : string }))` | `[]` | no |
-| workload\_uris | The list of workload uris in CAIS style to register | `list(object({ workload_uri : string, workload_id : string }))` | `[]` | no |
+| service\_project\_ids | The list of service projects to attach with host project. | `list(string)` | `[]` | no |
+| service\_uris | The list of service uris in CAIS style to register | `list(object({ service_uri : string, service_id : string, location : string }))` | `[]` | no |
+| workload\_uris | The list of workload uris in CAIS style to register | `list(object({ workload_uri : string, workload_id : string, location : string }))` | `[]` | no |
 
 ## Outputs
 
