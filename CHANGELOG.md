@@ -8,6 +8,17 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-apphub/compare/v0.2.0...v0.3.0) (2025-01-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* use services/workloads location in google_apphub_discovered_[wor… ([#23](https://github.com/GoogleCloudPlatform/terraform-google-apphub/issues/23))
+
+### Bug Fixes
+
+* use services/workloads location in google_apphub_discovered_[wor… ([#23](https://github.com/GoogleCloudPlatform/terraform-google-apphub/issues/23)) ([5130b38](https://github.com/GoogleCloudPlatform/terraform-google-apphub/commit/5130b38fa6aab99c067a00754876fd65a00c85be))
+
 ## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-apphub/compare/v0.1.0...v0.2.0) (2024-12-13)
 
 

@@ -23,7 +23,7 @@ spec:
     title: terraform-google-apphub
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-google-apphub
-    version: 0.2.0
+    version: 0.3.0
     actuationTool:
       flavor: Terraform
       version: ">=1.3"
