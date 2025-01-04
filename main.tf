@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-locals {
-  apphub_host_project = var.host_project_id != null ? var.host_project_id : var.project_id
-}
-
 #Creating the application
 resource "google_apphub_application" "apphub_application" {
   count          = var.create_application ? 1 : 0
-  project        = local.apphub_host_project
+  project        = var.project_id
   location       = var.location
   application_id = var.application_id
   display_name   = var.display_name
@@ -72,9 +68,9 @@ resource "google_apphub_application" "apphub_application" {
 
 #Attaching service project; assuming host project and service project are the same
 resource "google_apphub_service_project_attachment" "attach_service_project" {
-  count                         = var.create_service_attachment ? 1 : 0
-  project                       = local.apphub_host_project
-  service_project_attachment_id = var.project_id
+  for_each                      = toset(var.service_project_ids)
+  project                       = var.project_id
+  service_project_attachment_id = each.value
 }
 
 #Discover a service
@@ -82,7 +78,7 @@ data "google_apphub_discovered_service" "services" {
   for_each = { for service in var.service_uris : service.service_id => service }
 
   project     = var.project_id
-  location    = var.location
+  location    = each.value.location
   service_uri = each.value.service_uri
   depends_on  = [google_apphub_service_project_attachment.attach_service_project]
 }
@@ -103,7 +99,7 @@ data "google_apphub_discovered_workload" "workloads" {
   for_each = { for workload in var.workload_uris : workload.workload_id => workload }
 
   project      = var.project_id
-  location     = var.location
+  location     = each.value.location
   workload_uri = each.value.workload_uri
   depends_on   = [google_apphub_service_project_attachment.attach_service_project]
 }

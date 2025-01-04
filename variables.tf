@@ -15,29 +15,23 @@
  */
 
 variable "project_id" {
-  description = "The project ID of the service project where service and workloads are present"
+  description = "The project ID of the host project where AppHub application is created."
   type        = string
 }
 
 variable "location" {
-  description = "The location of apphub resources"
+  description = "The location of AppHub application."
   type        = string
 }
 
-variable "host_project_id" {
-  description = "The project ID of the host project. Use project_id by default."
-  type        = string
-  default     = null
+variable "service_project_ids" {
+  description = "The list of service projects to attach with host project."
+  type        = list(string)
+  default     = []
 }
 
 variable "create_application" {
   description = "Create apphub application when true"
-  type        = bool
-  default     = false
-}
-
-variable "create_service_attachment" {
-  description = "Create service attachment between host and service project when true"
   type        = bool
   default     = false
 }
@@ -79,12 +73,12 @@ variable "attributes" {
 
 variable "service_uris" {
   description = "The list of service uris in CAIS style to register"
-  type        = list(object({ service_uri : string, service_id : string }))
+  type        = list(object({ service_uri : string, service_id : string, location : string }))
   default     = []
 }
 
 variable "workload_uris" {
   description = "The list of workload uris in CAIS style to register"
-  type        = list(object({ workload_uri : string, workload_id : string }))
+  type        = list(object({ workload_uri : string, workload_id : string, location : string }))
   default     = []
 }
