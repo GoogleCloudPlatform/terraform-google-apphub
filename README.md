@@ -16,7 +16,7 @@ Basic usage of this module is as follows:
 ```hcl
 module "apphub" {
   source  = "terraform-google-modules/apphub/google"
-  version = "~> 0.3"
+  version = "~> 0.4"
 
   project_id  = "<PROJECT ID>"
   application_id = "<APPHUB_APPLICATION_ID>"

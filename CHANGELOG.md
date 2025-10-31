@@ -8,6 +8,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.4.0](https://github.com/GoogleCloudPlatform/terraform-google-apphub/compare/v0.3.0...v0.4.0) (2025-10-31)
+
+
+### Features
+
+* **deps:** Update Terraform google to v7 ([#35](https://github.com/GoogleCloudPlatform/terraform-google-apphub/issues/35)) ([aaa1aa1](https://github.com/GoogleCloudPlatform/terraform-google-apphub/commit/aaa1aa1828a27ec886cddd0b1a8ea06021d00de7))
+
 ## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-apphub/compare/v0.2.0...v0.3.0) (2025-01-04)
 
 
